@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vuforia:
     vuforiaLicenseKey: AXmSxcH/////AAABmSHJVpaoMUBlo9mYeOOd01kOmQ3GL0sEJNiT+W7A4pxuOj1cz4mpyYkB5euiRGQ4xPgCp13oVMjo2QQEavK2GN3TRZ1NC74mlh/Zl1EkVMEinaQ/U4qrZVWQ5S4rVXUia3TDWcoGyGLEu2pslEWqVcVbXm39K/UTVKBUI4CqQxOg/w/q3FH68H0oAeOqBv8voGN1ribn0Vruvjrgr/CUmhNXhSXoLWyt72UihBfPCO7M/X3HRnHpwYc1LwpIFCvO7hfjCCtKuNtiXUtMNobL1zfFQ/Xd8fW75JGvuiHHuZNQeqQaaSqp40c3iJR6O8RCs1VvKjfRKotTs39kTH28kNTthWoW1T/scdSe59iqib6A
-    ufoLicenseKey: QVFsUG8vMy8vLy8vQUFBQUtIWDFBYnhUVWs2Mm1lbWNHWlV5a2hkNGhsWnlFTkJUVkdyQnBDR09YWjdLNjRuRnMwT3QrNDNxaUxTWktXWG16L2hIcjNjNmxuTjBUMlhtT0NydlBMNk05T1dOdDNmTllZTUFVc2NCY25YdzNFUUVUVk5SdlQyNjl5UWxGUUJkbi9RZVB4QVJWQm94WlppOW10Qk9QMlVxVXZQVDl4S2xvL3o5TUFhSDM5ZGJYYTBkY05RS0NtK3BVZk9TOXlHNGVnWDE4SktlT2ZmR1ZacXRoVmVHS2tQZU9HTzJCZS9HeEhiRHRrOGR0Zll0WDVRN2I2S0VOQjV4VEZQbkJpWDZaU1QvcjVlMXlEREM1VXlYZDhHTUNQc2FmeWZUMk1BanlOZWNLcm5reXhoeERGZHVrU2RYRkI4ZVo0Y1Qzdm5BYnBBNVJZclkwa3dNQzFTYW0yMzlabnorNm00cStDcUd2ZkQxU0VIcml1N24=
+    ufoLicenseKey: QVhiM0Y1Ly8vLy8vQUFBQUtPbnFIeHJFSGs1N3VrMlg4U050eVBzK2pkOFZxMDhrazlwYjBsYS9aZUIxQlV1ckZWcWt0ZllSQWpnT2tIRlY2VzdOMDRTRjNYRUhmbTF5L1BnYlB4eWdHWEF6RUNheXowc3dyNVNYa2ozdERuRjhka1FpOHRscHdkMDcrcEJEY1FjTjNJcUM1bEgwOTYzQkdZdjRsQStRb0hSQU9nRGthelp5TlY0WHVwWU9EaE05NWw5bXAzbnBDMjM5MWZBWXBFdEdiL2loTDNab3N4b25ZblhjK1JtSS9wLzRoTDIwVGhmTXR6WFJNYkpUTXZLZzJoQ0N0TEJXNEptZ0pSOUtSdStzQWM3QjVNOWFFMGVHQ1dUT1VRSUUweEpiZC9ZL2cvS29iNDhBRXdQOGFwbWR5NmRWU0FHU2psVzRZY2FEU2Zud3J1ZHhucVNmSUZiajNTUnIzM0lKVlFIaW1rL0oyOGNFeDdyekcySXg=
     delayedInitialization: 0
     cameraFocusModeSetting: 2
     cameraDeviceModeSetting: -1
@@ -24,8 +24,8 @@ MonoBehaviour:
     useDelayedLoadingObjectTargets: 0
     modelTargetRecoWhileExtendedTracked: 1
     shareRecordingsInITunes: 0
-    version: 10.6.3
-    eulaAcceptedVersions: '{"Values":["10.6"]}'
+    version: 10.5.5
+    eulaAcceptedVersions: '{"Values":["10.5"]}'
   database:
     disableModelExtraction: 0
   shaders:
@@ -42,7 +42,7 @@ MonoBehaviour:
     thirdPartyARCoreClientDetected: 0
   playmode:
     mSequencePath: 
-    playModeType: 1
+    playModeType: 0
   webcam:
     renderTextureLayer: 30
   packageInformation:
