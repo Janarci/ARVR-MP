@@ -8,7 +8,7 @@ public class AffectionLevelManager : MonoBehaviour
 {
     [SerializeField] private int curLevel = 1;
     [SerializeField] private int maxLevel = 5;
-    [SerializeField] private float curAffection;
+    [SerializeField] private int curAffection;
     [SerializeField] private AnimationCurve maxAffectionPerLevel;
 
     [Header("UI")]
@@ -34,34 +34,33 @@ public class AffectionLevelManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
         bar.fillAmount = fillPercent;
         levelText.text = curLevel.ToString();
     }
 
     #region Affection Level Up Functions
-    public void AddAffection(float additional)
+    public void AddAffection(Gift gift)
     {
         if(curLevel == maxLevel)
         {
             Debug.Log("");
             return;
         }
-        curAffection += additional;
-        fillPercent = curAffection / maxAffectionPerLevel.Evaluate(curLevel);
+        curAffection += gift.Affection;
+        fillPercent = (float)curAffection / maxAffectionPerLevel.Evaluate(curLevel);
         if (fillPercent >= 1.0f)
         {
             LevelUp();
         }
-        bar.fillAmount = fillPercent;
     }
 
     void LevelUp()
     {
         curLevel += 1;
-        curAffection = 0.0f;
-        fillPercent = curAffection / maxAffectionPerLevel.Evaluate(curLevel);
+        curAffection = 0;
+        fillPercent = (float)curAffection / maxAffectionPerLevel.Evaluate(curLevel);
     }
     #endregion
 }
