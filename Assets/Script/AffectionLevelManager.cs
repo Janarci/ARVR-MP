@@ -36,8 +36,17 @@ public class AffectionLevelManager : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-        bar.fillAmount = fillPercent;
-        levelText.text = curLevel.ToString();
+        
+        if(curLevel < maxLevel)
+        {
+            bar.fillAmount = fillPercent;
+            levelText.text = curLevel.ToString();
+        }
+        else
+        {
+            bar.fillAmount = 1;
+            levelText.text = "MAX";
+        }
     }
 
     #region Affection Level Up Functions
