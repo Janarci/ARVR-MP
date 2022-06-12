@@ -6,6 +6,15 @@ using TMPro;
 
 public class AffectionLevelManager : MonoBehaviour
 {
+    public static AffectionLevelManager instance;
+    private void Awake()
+    {
+        if (instance == null)
+            instance = this;
+        else
+            Debug.LogError("Multiple instance of AffectionLevelManager Exists");
+    }
+
     [SerializeField] private int curLevel = 1;
     [SerializeField] private int maxLevel = 5;
     [SerializeField] private int curAffection;
