@@ -5,7 +5,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Gift", menuName = "ScriptableObjects/Gift", order = 1)]
 public class Gift : ScriptableObject
 {
-    public GameObject prefab;
-    public Sprite prefabImage;
-    public int Affection;
+    //This is a container of data
+    public GameObject prefab; //3D Model
+    public Sprite prefabImage; //Sprite
+    public int Affection; //Value
 }

@@ -25,7 +25,7 @@ public class AffectionLevelManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI levelText;
 
     [HideInInspector]
-    [Range(0.0f, 1.0f)] private float fillPercent; // curAffection / maxAffectionPerLevel
+    [Range(0.0f, 1.0f)] private float fillPercent; // curAffection divided by maxAffectionPerLevel
     // Start is called before the first frame update
     void Start()
     {
@@ -45,7 +45,7 @@ public class AffectionLevelManager : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-        
+        //if current level is below the maximum level
         if(curLevel < maxLevel)
         {
             bar.fillAmount = fillPercent;
@@ -61,6 +61,7 @@ public class AffectionLevelManager : MonoBehaviour
     #region Affection Level Up Functions
     public void AddAffection(Gift gift)
     {
+        //Gets the value of the Gift and checks if it can be applied to the girt
         if(curLevel == maxLevel)
         {
             Debug.Log("");
@@ -68,6 +69,7 @@ public class AffectionLevelManager : MonoBehaviour
         }
         curAffection += gift.Affection;
         fillPercent = (float)curAffection / maxAffectionPerLevel.Evaluate(curLevel);
+        //if the XP reaches 100 reset the curAffection to 0 and +1 level
         if (fillPercent >= 1.0f)
         {
             LevelUp();
