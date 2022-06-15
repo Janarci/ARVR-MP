@@ -1,0 +1,12 @@
+newmtl Tulipan
+Kd 0.666667 0.666667 0.666667
+Ke 0 0 0
+Ka 0.8 0.8 0.8
+Ks 0.4 0.4 0.4
+Ns 400
+Tr 0
+d 1
+Ni 1.2
+Tf 1 1 1
+map_Kd C:Users/Adrian/Desktop/Tulipan/Tulipan_lwo/Tulipan Color.png
+
