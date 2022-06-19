@@ -23,6 +23,8 @@ public class ChatUI : MonoBehaviour
 
     [SerializeField] private GameObject ChatBoxParent;
 
+    [SerializeField] private GameObject GiftPanel;
+
     private int currentDate = 0;
     private int currentDS = 0;
     private int currentDD = 0;
@@ -53,9 +55,11 @@ public class ChatUI : MonoBehaviour
             date2.gameObject.SetActive(true);
             date3.gameObject.SetActive(true);
             DisableAllUI();
+            GiftPanel.SetActive(true);
         }
         else 
         {
+            GiftPanel.SetActive(false);
             ChatBoxParent.SetActive(true);
             date1.gameObject.SetActive(false);
             date2.gameObject.SetActive(false);
@@ -653,9 +657,26 @@ public class ChatUI : MonoBehaviour
 
     public void ProceedTextButton()
     {
-        if (Date1[currentDS].dateDialogues[currentDD].isNextDecision == false)
+        if (currentDate == 1)
         {
-            currentDD++;
+            if (Date1[currentDS].dateDialogues[currentDD].isNextDecision == false)
+            {
+                currentDD++;
+            }
+        }
+        else if (currentDate == 2)
+        {
+            if (Date2[currentDS].dateDialogues[currentDD].isNextDecision == false)
+            {
+                currentDD++;
+            }
+        }
+        else if (currentDate == 3)
+        {
+            if (Date3[currentDS].dateDialogues[currentDD].isNextDecision == false)
+            {
+                currentDD++;
+            }
         }
     }
 }
