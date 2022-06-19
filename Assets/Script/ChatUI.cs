@@ -69,6 +69,7 @@ public class ChatUI : MonoBehaviour
             Debug.Log("currentDD: " + currentDD);
             Debug.Log("1ds2 count: " + Date1[2].dateDialogueCount);
             DecisionHider();
+            ArrowHider();
         }
         if (currentDate == 1)
         {
@@ -532,6 +533,41 @@ public class ChatUI : MonoBehaviour
             }
         }
         
+    }
+
+    private void ArrowHider()
+    {
+        if (currentDate == 1)
+        {
+            if (currentDS < Date1.Count)
+            {
+                if (Date1[currentDS].dateDialogues[currentDD].who == Dialogue.character.GIRL)
+                {
+                    ChatBoxArrow.SetActive(true);
+                }
+            }
+        }
+        if (currentDate == 2)
+        {
+            if (currentDS < Date1.Count)
+            {
+                if (Date2[currentDS].dateDialogues[currentDD].who == Dialogue.character.PLAYER)
+                {
+                    ChatBoxArrow.SetActive(true);
+                }
+            }
+        }
+        if (currentDate == 3)
+        {
+            if (currentDS < Date1.Count)
+            {
+                if (Date3[currentDS].dateDialogues[currentDD].who == Dialogue.character.PLAYER)
+                {
+                    ChatBoxArrow.SetActive(true);
+                }
+            }
+        }
+
     }
 
     private void DialogueControl()
