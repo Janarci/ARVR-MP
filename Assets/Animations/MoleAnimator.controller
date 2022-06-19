@@ -131,7 +131,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: Whack
+    m_ConditionEvent: Popin
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 8477770491667875015}
@@ -164,7 +164,7 @@ AnimatorStateMachine:
     m_Position: {x: 400, y: 290, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -3206690826828332302}
-    m_Position: {x: 400, y: 100, z: 0}
+    m_Position: {x: 400, y: 110, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -190,7 +190,7 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
-  - m_Name: Whack
+  - m_Name: Popin
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -244,7 +244,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Whacked
+  m_Name: MolePopin
   m_Speed: -1
   m_CycleOffset: 0
   m_Transitions:

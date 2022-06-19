@@ -40,13 +40,5 @@ public class MoleButtonHandler : MonoBehaviour
     private void VirtualButtonReleased(VirtualButtonBehaviour button)
     {
         Debug.Log(button.VirtualButtonName + " is released");
-
-        for (int i = 0; i < virtualButtons.Count; i++)
-        {
-            if (virtualButtons[i].VirtualButtonName == button.VirtualButtonName)
-            {
-                molesList[i].Whacked2();
-            }
-        }
     }
 }
