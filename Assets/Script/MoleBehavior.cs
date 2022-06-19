@@ -5,6 +5,9 @@ using UnityEngine;
 public class MoleBehavior : MonoBehaviour
 {
     private Animator anim;
+    [SerializeField] private MoleGameHandler gameHandler;
+
+    [Header("Behavior Configuration")]
     [SerializeField] private float popoutDuration = 3.0f;
     private float popoutDurationTimer;
     public bool hasPoppedout = false;
@@ -57,6 +60,7 @@ public class MoleBehavior : MonoBehaviour
         if (hasPoppedout)
         {
             Debug.Log(this.gameObject.name + " was whacked");
+            gameHandler.UpdateCurrentScoreText(this.gameObject.name);
             anim.SetTrigger("Popin");
             popoutDurationTimer = popoutDuration;
             hasPoppedout = false;

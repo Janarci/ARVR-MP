@@ -5,16 +5,21 @@ using UnityEngine.UI;
 
 public class MoleGameHandler : MonoBehaviour
 {
-    public int currentScore = 0;
-    public int highScore = 1064;
-    [SerializeField] private float eventTimer = 120.0f;
+    [Header("Timer Configuration")]
     [SerializeField] private Text timerText;
+    [SerializeField] private float eventTimer = 120.0f;
 
+    [Header("Score Configuration")]
+    [SerializeField] private Text currentScoreText;
+    public int currentScore = 0;
+    [SerializeField] private Text highScoreText;
+    public int highScore;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        highScoreText.text = "High Score: " + highScore.ToString();
+        currentScoreText.text = "Score: " + currentScore.ToString();
     }
 
     // Update is called once per frame
@@ -38,6 +43,16 @@ public class MoleGameHandler : MonoBehaviour
         }
     }
 
+    public void PauseGame()
+    {
+        Time.timeScale = 0;
+    }
+
+    public void ResumeGame()
+    {
+        Time.timeScale = 1;
+    }
+
     private void UpdateTimerText(float currentTime)
     {
         currentTime += 1;
@@ -48,13 +63,22 @@ public class MoleGameHandler : MonoBehaviour
         timerText.text = string.Format("{0:00} : {1:00}", minutes, seconds);
     }
 
-    public void PauseGame()
+    public void UpdateCurrentScoreText(string name)
     {
-        Time.timeScale = 0;
-    }
-
-    public void ResumeGame()
-    {
-        Time.timeScale = 1;
+        if ((string.Equals(name, "Mole1")) || (string.Equals(name, "Mole3")))
+        {
+            currentScore += 20;
+            currentScoreText.text = "Score: " + currentScore.ToString();
+        }
+        else if ((string.Equals(name, "Mole2")) || (string.Equals(name, "Mole4")))
+        {
+            currentScore += 40;
+            currentScoreText.text = "Score: " + currentScore.ToString();
+        }
+        else
+        {
+            currentScore += 60;
+            currentScoreText.text = "Score: " + currentScore.ToString();
+        }
     }
 }
