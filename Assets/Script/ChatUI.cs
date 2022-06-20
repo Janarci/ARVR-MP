@@ -623,6 +623,10 @@ public class ChatUI : MonoBehaviour
             date3.interactable = true;
             currentDate = 0;
         }
+        if (currentDate == 3 && currentDD == 9 && currentDS == 1)
+        {
+            date319d0();
+        }
         if (currentDate == 3 && currentDD == 3 && currentDS == 2)
         {
             currentDate = 0;
@@ -707,7 +711,12 @@ public class ChatUI : MonoBehaviour
     {
         GiftPanel.SetActive(true);
         ChatBoxParent.SetActive(false);
+    }
 
+    private void date319d0()
+    {
+        SceneManager.LoadSceneAsync("ThirdDate", LoadSceneMode.Single);
+        this.gameObject.SetActive(false);
     }
 
     //temp
