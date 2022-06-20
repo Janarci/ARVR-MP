@@ -6,11 +6,9 @@ public class GameResult : MonoBehaviour
 {
     public static GameResult instance;
 
-    private int DSResult;
-    private int DDResult;
-
-    public int DSResult1 { get => DSResult; set => DSResult = value; }
-    public int DDResult1 { get => DDResult; set => DDResult = value; }
+    public int DSResult = 0;
+    public int DDResult = 0;
+    public int currentDate = 0;
 
     void Awake()
     {

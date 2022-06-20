@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class MoleGameHandler : MonoBehaviour
 {
@@ -35,10 +36,19 @@ public class MoleGameHandler : MonoBehaviour
             if (currentScore > highScore)
             {
                 //insert win scene here
+                SceneManager.LoadSceneAsync("SampleScene", LoadSceneMode.Single);
+                GameResult.instance.currentDate = 3;
+                GameResult.instance.DDResult = 0;
+                GameResult.instance.DSResult = 2;
+                AffectionLevelManager.instance.AddAffectionOnEvent(10);
             }
             else
             {
                 //insert lose scene here
+                SceneManager.LoadSceneAsync("SampleScene", LoadSceneMode.Single);
+                GameResult.instance.currentDate = 3;
+                GameResult.instance.DDResult = 0;
+                GameResult.instance.DSResult = 3;
             }
         }
     }

@@ -46,6 +46,10 @@ public class ChatUI : MonoBehaviour
         }
 
         DontDestroyOnLoad(this.gameObject);
+
+        currentDate = GameResult.instance.currentDate;
+        currentDD = GameResult.instance.DDResult;
+        currentDS = GameResult.instance.DSResult;
     }
 
     // Start is called before the first frame update
