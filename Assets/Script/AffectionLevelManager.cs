@@ -76,6 +76,23 @@ public class AffectionLevelManager : MonoBehaviour
         }
     }
 
+    public void AddAffectionOnEvent(int value)
+    {
+        //Gets the value of the Gift and checks if it can be applied to the girt
+        if (curLevel == maxLevel)
+        {
+            Debug.Log("");
+            return;
+        }
+        curAffection += value;
+        fillPercent = (float)curAffection / maxAffectionPerLevel.Evaluate(curLevel);
+        //if the XP reaches 100 reset the curAffection to 0 and +1 level
+        if (fillPercent >= 1.0f)
+        {
+            LevelUp();
+        }
+    }
+
     void LevelUp()
     {
         curLevel += 1;
