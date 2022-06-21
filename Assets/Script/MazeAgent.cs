@@ -18,7 +18,7 @@ public class MazeAgent : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        animator.SetFloat("Speed", agent.velocity.sqrMagnitude);
+        animator.SetBool("isRunning", agent.velocity.sqrMagnitude != 0);
     }
 
     public void MoveToDestination(Vector3 position)

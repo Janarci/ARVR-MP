@@ -4,19 +4,6 @@ using UnityEngine;
 
 public class MazeAgentController : MonoBehaviour
 {
-    private static MazeAgentController instance;
-    public static MazeAgentController Instance
-    {
-        get
-        {
-            if (instance == null)
-            {
-                instance = GameObject.FindObjectOfType<MazeAgentController>();
-            }
-            return instance;
-        }
-    }
-
     [SerializeField] private MazeAgent[] agents;
 
     // Start is called before the first frame update
@@ -39,11 +26,8 @@ public class MazeAgentController : MonoBehaviour
         Ray r = Camera.main.ScreenPointToRay(touchPosition);
         RaycastHit hit;
         int layerMask = LayerMask.GetMask("Target");
-            
         if (Physics.Raycast(r, out hit, 100, layerMask))
         {
-            Debug.Log("yeet");
-
             Vector3 hitPoint = hit.point;
             MoveAgentsToPosition(hitPoint);
         }
