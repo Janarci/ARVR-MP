@@ -22,7 +22,7 @@ public class ChatUI : MonoBehaviour
     [SerializeField] private GameObject ChatBoxArrow;
     [SerializeField] private Text ChatLog;
 
-    [SerializeField] private GameObject ChatBoxParent;
+    [SerializeField] public GameObject ChatBoxParent;
 
     [SerializeField] private GameObject GiftPanel;
 
@@ -30,7 +30,7 @@ public class ChatUI : MonoBehaviour
     public int currentDS = 0;
     public int currentDD = 0;
 
-    private bool pauseMouseClick = false;
+    public bool isOnLoad = false;
 
     private List<DateScenario> Date1 = new List<DateScenario>(5);
     private List<DateScenario> Date2 = new List<DateScenario>(5);
@@ -65,81 +65,84 @@ public class ChatUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (currentDate == 0)
+        if (!isOnLoad && this.gameObject != null)
         {
-            date1.gameObject.SetActive(true);
-            date2.gameObject.SetActive(true);
-            date3.gameObject.SetActive(true);
-            DisableAllUI();
-            GiftPanel.SetActive(true);
-        }
-        else 
-        {
-            if (!(currentDate == 2 && currentDS == 2 && currentDD == 0))
+            if (currentDate == 0)
             {
-                GiftPanel.SetActive(false);
-                ChatBoxParent.SetActive(true);
+                date1.gameObject.SetActive(true);
+                date2.gameObject.SetActive(true);
+                date3.gameObject.SetActive(true);
+                DisableAllUI();
+                GiftPanel.SetActive(true);
             }
-            date1.gameObject.SetActive(false);
-            date2.gameObject.SetActive(false);
-            date3.gameObject.SetActive(false);
-            EndScenarioControl();
-            DialogueControl();
-            Debug.Log("currentDS: " + currentDS);
-            Debug.Log("currentDD: " + currentDD);
-            Debug.Log("1ds2 count: " + Date1[2].dateDialogueCount);
-            DecisionHider();
-            ArrowHider();
-        }
-        if (currentDate == 1)
-        {
-            if (currentDS < Date1.Count)
+            else
+            {
+                if (!(currentDate == 2 && currentDS == 2 && currentDD == 0))
+                {
+                    GiftPanel.SetActive(false);
+                    ChatBoxParent.SetActive(true);
+                }
+                date1.gameObject.SetActive(false);
+                date2.gameObject.SetActive(false);
+                date3.gameObject.SetActive(false);
+                EndScenarioControl();
+                DialogueControl();
+                Debug.Log("currentDS: " + currentDS);
+                Debug.Log("currentDD: " + currentDD);
+                Debug.Log("1ds2 count: " + Date1[2].dateDialogueCount);
+                DecisionHider();
+                ArrowHider();
+            }
+            if (currentDate == 1)
+            {
+                if (currentDS < Date1.Count)
+                {
+                    setTextBoxes(currentDS, currentDD);
+                    if (Date1[currentDS].dateDialogues[currentDD].isNextDecision == true)
+                    {
+                        setDecisions(currentDS, currentDD);
+                        DecisionControls();
+                    }
+                }
+                else
+                {
+                    date2.interactable = true;
+                    currentDate = 0;
+                }
+
+            }
+            else if (currentDate == 2)
             {
                 setTextBoxes(currentDS, currentDD);
-                if (Date1[currentDS].dateDialogues[currentDD].isNextDecision == true)
+                if (currentDS < Date2.Count)
                 {
-                    setDecisions(currentDS, currentDD);
-                    DecisionControls();
+                    if (Date2[currentDS].dateDialogues[currentDD].isNextDecision == true)
+                    {
+                        setDecisions(currentDS, currentDD);
+                        DecisionControls();
+                    }
+                }
+                else
+                {
+                    date3.interactable = true;
+                    currentDate = 0;
                 }
             }
-            else
+            else if (currentDate == 3)
             {
-                date2.interactable = true;
-                currentDate = 0;
-            }
-            
-        }
-        else if (currentDate == 2)
-        {
-            setTextBoxes(currentDS, currentDD);
-            if (currentDS < Date2.Count)
-            {
-                if (Date2[currentDS].dateDialogues[currentDD].isNextDecision == true)
+                setTextBoxes(currentDS, currentDD);
+                if (currentDS < Date3.Count)
                 {
-                    setDecisions(currentDS, currentDD);
-                    DecisionControls();
+                    if (Date3[currentDS].dateDialogues[currentDD].isNextDecision == true)
+                    {
+                        setDecisions(currentDS, currentDD);
+                        DecisionControls();
+                    }
                 }
-            }
-            else
-            {
-                date3.interactable = true;
-                currentDate = 0;
-            }
-        }
-        else if (currentDate == 3)
-        {
-            setTextBoxes(currentDS, currentDD);
-            if (currentDS < Date3.Count)
-            {
-                if (Date3[currentDS].dateDialogues[currentDD].isNextDecision == true)
+                else
                 {
-                    setDecisions(currentDS, currentDD);
-                    DecisionControls();
+                    currentDate = 0;
                 }
-            }
-            else
-            {
-                currentDate = 0;
             }
         }
     }
@@ -616,7 +619,7 @@ public class ChatUI : MonoBehaviour
 
     private void EndScenarioControl()
     {
-        if (currentDate == 1 && currentDD == 3 && currentDS == 2)
+        if (currentDate == 1 && currentDD == 3 && currentDS == 3)
         {
             date2.interactable = true;
             currentDate = 0;
@@ -702,7 +705,12 @@ public class ChatUI : MonoBehaviour
     private void date121d2()
     {
         SceneManager.LoadSceneAsync("FirstDate", LoadSceneMode.Single);
-        this.gameObject.SetActive(false);
+        ChatBoxParent.SetActive(false);
+        decision1.gameObject.SetActive(false);
+        decision2.gameObject.SetActive(false);
+        decision3.gameObject.SetActive(false);
+        isOnLoad = true;
+
     }
 
     private void date213d1()
@@ -719,7 +727,11 @@ public class ChatUI : MonoBehaviour
     private void date319d0()
     {
         SceneManager.LoadSceneAsync("ThirdDate", LoadSceneMode.Single);
-        this.gameObject.SetActive(false);
+        ChatBoxParent.SetActive(false);
+        decision1.gameObject.SetActive(false);
+        decision2.gameObject.SetActive(false);
+        decision3.gameObject.SetActive(false);
+        isOnLoad = true;
     }
 
     //temp

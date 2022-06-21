@@ -20,10 +20,6 @@ public class MazeExit : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        SceneManager.LoadSceneAsync("SampleScene", LoadSceneMode.Single);
-        GameResult.instance.currentDate = 1;
-        GameResult.instance.DDResult = 0;
-        GameResult.instance.DSResult = 3;
-        GameResult.instance.isSceneLoaded = true;
+        GameResult.instance.onMazeWin();
     }
 }

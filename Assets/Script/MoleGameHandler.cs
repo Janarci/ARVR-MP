@@ -36,21 +36,12 @@ public class MoleGameHandler : MonoBehaviour
             if (currentScore > highScore)
             {
                 //insert win scene here
-                SceneManager.LoadSceneAsync("SampleScene", LoadSceneMode.Single);
-                GameResult.instance.currentDate = 3;
-                GameResult.instance.DDResult = 0;
-                GameResult.instance.DSResult = 2;
-                AffectionLevelManager.instance.AddAffectionOnEvent(10);
-                GameResult.instance.isSceneLoaded = true;
+                GameResult.instance.onMoleWin();
             }
             else
             {
                 //insert lose scene here
-                SceneManager.LoadSceneAsync("SampleScene", LoadSceneMode.Single);
-                GameResult.instance.currentDate = 3;
-                GameResult.instance.DDResult = 0;
-                GameResult.instance.DSResult = 3;
-                GameResult.instance.isSceneLoaded = true;
+                GameResult.instance.onMoleLose();
             }
         }
     }
@@ -92,5 +83,15 @@ public class MoleGameHandler : MonoBehaviour
             currentScore += 60;
             currentScoreText.text = "Score: " + currentScore.ToString();
         }
+    }
+
+    public void LoseTestButton()
+    {
+        GameResult.instance.onMoleLose();
+    }
+
+    public void WinTestButton()
+    {
+        GameResult.instance.onMoleWin();
     }
 }

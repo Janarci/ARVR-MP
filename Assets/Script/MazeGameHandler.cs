@@ -27,11 +27,7 @@ public class MazeGameHandler : MonoBehaviour
         }
         else
         {
-            SceneManager.LoadSceneAsync("SampleScene", LoadSceneMode.Single);
-            GameResult.instance.currentDate = 1;
-            GameResult.instance.DDResult = 0;
-            GameResult.instance.DSResult = 4;
-            GameResult.instance.isSceneLoaded = true;
+            GameResult.instance.onMazeLose();
         }
     }
 
@@ -53,5 +49,15 @@ public class MazeGameHandler : MonoBehaviour
     public void ResumeGame()
     {
         Time.timeScale = 1;
+    }
+
+    public void LoseTestButton()
+    {
+        GameResult.instance.onMazeLose();
+    }
+
+    public void WinTestButton()
+    {
+        GameResult.instance.onMazeWin();
     }
 }
