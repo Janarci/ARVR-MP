@@ -41,6 +41,7 @@ public class MoleGameHandler : MonoBehaviour
                 GameResult.instance.DDResult = 0;
                 GameResult.instance.DSResult = 2;
                 AffectionLevelManager.instance.AddAffectionOnEvent(10);
+                GameResult.instance.isSceneLoaded = true;
             }
             else
             {
@@ -49,6 +50,7 @@ public class MoleGameHandler : MonoBehaviour
                 GameResult.instance.currentDate = 3;
                 GameResult.instance.DDResult = 0;
                 GameResult.instance.DSResult = 3;
+                GameResult.instance.isSceneLoaded = true;
             }
         }
     }

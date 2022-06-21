@@ -26,9 +26,9 @@ public class ChatUI : MonoBehaviour
 
     [SerializeField] private GameObject GiftPanel;
 
-    private int currentDate = 0;
-    private int currentDS = 0;
-    private int currentDD = 0;
+    public int currentDate = 0;
+    public int currentDS = 0;
+    public int currentDD = 0;
 
     private bool pauseMouseClick = false;
 
@@ -47,14 +47,13 @@ public class ChatUI : MonoBehaviour
 
         DontDestroyOnLoad(this.gameObject);
 
-        currentDate = GameResult.instance.currentDate;
-        currentDD = GameResult.instance.DDResult;
-        currentDS = GameResult.instance.DSResult;
+        
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        
         InitDate1();
         InitDate2();
         InitDate3();

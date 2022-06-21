@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 public class MazeExit : MonoBehaviour
 {
@@ -18,6 +20,10 @@ public class MazeExit : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        //insert win scene here
+        SceneManager.LoadSceneAsync("SampleScene", LoadSceneMode.Single);
+        GameResult.instance.currentDate = 1;
+        GameResult.instance.DDResult = 0;
+        GameResult.instance.DSResult = 3;
+        GameResult.instance.isSceneLoaded = true;
     }
 }

@@ -10,8 +10,15 @@ public class GameResult : MonoBehaviour
     public int DDResult = 0;
     public int currentDate = 0;
 
+    public bool isSceneLoaded = false;
+
+    public ChatUI chatUI;
+
     void Awake()
     {
+        DSResult = 0;
+        DDResult = 0;
+        currentDate = 0;
         GameObject[] objs = GameObject.FindGameObjectsWithTag("Results");
 
         if (objs.Length > 1)
@@ -21,4 +28,16 @@ public class GameResult : MonoBehaviour
 
         DontDestroyOnLoad(this.gameObject);
     }
+
+    private void Update()
+    {
+        if (isSceneLoaded)
+        {
+            chatUI.currentDate = currentDate;
+            chatUI.currentDS = DSResult;
+            chatUI.currentDD = DDResult;
+            isSceneLoaded = true;
+        }
+    }
+
 }

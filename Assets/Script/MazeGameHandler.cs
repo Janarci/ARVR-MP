@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class MazeGameHandler : MonoBehaviour
 {
@@ -26,7 +27,11 @@ public class MazeGameHandler : MonoBehaviour
         }
         else
         {
-            //insert lose scene here
+            SceneManager.LoadSceneAsync("SampleScene", LoadSceneMode.Single);
+            GameResult.instance.currentDate = 1;
+            GameResult.instance.DDResult = 0;
+            GameResult.instance.DSResult = 4;
+            GameResult.instance.isSceneLoaded = true;
         }
     }
 
