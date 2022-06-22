@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class ChatUI : MonoBehaviour
 {
@@ -21,23 +22,38 @@ public class ChatUI : MonoBehaviour
     [SerializeField] private GameObject ChatBoxArrow;
     [SerializeField] private Text ChatLog;
 
-    [SerializeField] private GameObject ChatBoxParent;
+    [SerializeField] public GameObject ChatBoxParent;
 
     [SerializeField] private GameObject GiftPanel;
 
-    private int currentDate = 0;
-    private int currentDS = 0;
-    private int currentDD = 0;
+    public int currentDate = 0;
+    public int currentDS = 0;
+    public int currentDD = 0;
 
-    private bool pauseMouseClick = false;
+    public bool isOnLoad = false;
 
     private List<DateScenario> Date1 = new List<DateScenario>(5);
     private List<DateScenario> Date2 = new List<DateScenario>(5);
     private List<DateScenario> Date3 = new List<DateScenario>(4);
 
+    void Awake()
+    {
+        GameObject[] objs = GameObject.FindGameObjectsWithTag("ChatUI");
+
+        if (objs.Length > 1)
+        {
+            Destroy(this.gameObject);
+        }
+
+        DontDestroyOnLoad(this.gameObject);
+
+        
+    }
+
     // Start is called before the first frame update
     void Start()
     {
+        
         InitDate1();
         InitDate2();
         InitDate3();
@@ -49,90 +65,88 @@ public class ChatUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (currentDate == 0)
+        if (!isOnLoad && this.gameObject != null)
         {
-            date1.gameObject.SetActive(true);
-            date2.gameObject.SetActive(true);
-            date3.gameObject.SetActive(true);
-            DisableAllUI();
-            GiftPanel.SetActive(true);
-        }
-        else 
-        {
-            GiftPanel.SetActive(false);
-            ChatBoxParent.SetActive(true);
-            date1.gameObject.SetActive(false);
-            date2.gameObject.SetActive(false);
-            date3.gameObject.SetActive(false);
-            DialogueControl();
-            Debug.Log("currentDS: " + currentDS);
-            Debug.Log("currentDD: " + currentDD);
-            Debug.Log("1ds2 count: " + Date1[2].dateDialogueCount);
-            DecisionHider();
-            ArrowHider();
-        }
-        if (currentDate == 1)
-        {
-            if (currentDS < Date1.Count)
+            if (currentDate == 0)
+            {
+                date1.gameObject.SetActive(true);
+                date2.gameObject.SetActive(true);
+                date3.gameObject.SetActive(true);
+                DisableAllUI();
+                GiftPanel.SetActive(false);
+            }
+            else
+            {
+                if (!(currentDate == 2 && currentDS == 2 && currentDD == 0))
+                {
+                    GiftPanel.SetActive(false);
+                    ChatBoxParent.SetActive(true);
+                }
+                else if (currentDate == 3 && currentDS == 2 && currentDD == 0)
+                {
+                    GiftPanel.SetActive(true);
+                }
+                date1.gameObject.SetActive(false);
+                date2.gameObject.SetActive(false);
+                date3.gameObject.SetActive(false);
+                EndScenarioControl();
+                DialogueControl();
+                Debug.Log("currentDS: " + currentDS);
+                Debug.Log("currentDD: " + currentDD);
+                Debug.Log("1ds2 count: " + Date1[2].dateDialogueCount);
+                DecisionHider();
+                ArrowHider();
+            }
+            if (currentDate == 1)
+            {
+                if (currentDS < Date1.Count)
+                {
+                    setTextBoxes(currentDS, currentDD);
+                    if (Date1[currentDS].dateDialogues[currentDD].isNextDecision == true)
+                    {
+                        setDecisions(currentDS, currentDD);
+                        DecisionControls();
+                    }
+                }
+                else
+                {
+                    date2.interactable = true;
+                    currentDate = 0;
+                }
+
+            }
+            else if (currentDate == 2)
             {
                 setTextBoxes(currentDS, currentDD);
-                if (Date1[currentDS].dateDialogues[currentDD].isNextDecision == true)
+                if (currentDS < Date2.Count)
                 {
-                    setDecisions(currentDS, currentDD);
-                    DecisionControls();
-                }
-            }
-            else
-            {
-                date2.interactable = true;
-                currentDate = 0;
-            }
-        }
-        else if (currentDate == 2)
-        {
-            setTextBoxes(currentDS, currentDD);
-            if (currentDS < Date2.Count)
-            {
-                if (Date2[currentDS].dateDialogues[currentDD].isNextDecision == false)
-                {
-                    if (Input.GetMouseButtonDown(0) && !pauseMouseClick)
+                    if (Date2[currentDS].dateDialogues[currentDD].isNextDecision == true)
                     {
-                        currentDD++;
+                        setDecisions(currentDS, currentDD);
+                        DecisionControls();
                     }
                 }
                 else
                 {
-                    setDecisions(currentDS, currentDD);
-                    DecisionControls();
+                    date3.interactable = true;
+                    currentDate = 0;
                 }
             }
-            else
+            else if (currentDate == 3)
             {
-                date3.interactable = true;
-                currentDate = 0;
-            }
-        }
-        else if (currentDate == 3)
-        {
-            setTextBoxes(currentDS, currentDD);
-            if (currentDS < Date3.Count)
-            {
-                if (Date3[currentDS].dateDialogues[currentDD].isNextDecision == false)
+                setTextBoxes(currentDS, currentDD);
+                if (currentDS < Date3.Count)
                 {
-                    if (Input.GetMouseButtonDown(0) && !pauseMouseClick)
+                    if (Date3[currentDS].dateDialogues[currentDD].isNextDecision == true)
                     {
-                        currentDD++;
+                        setDecisions(currentDS, currentDD);
+                        DecisionControls();
                     }
                 }
                 else
                 {
-                    setDecisions(currentDS, currentDD);
-                    DecisionControls();
+                    currentDate = 0;
                 }
-            }
-            else
-            {
-                currentDate = 0;
             }
         }
     }
@@ -426,11 +440,11 @@ public class ChatUI : MonoBehaviour
         Date3[ds].dateDialogues[0] = new Dialogue();
         Date3[ds].dateDialogues[1] = new Dialogue();
         //DS3 - girl if lose
-        Date3[ds].dateDialogues[0].statement = "The quiet streets made you feel that you both are the last people on earth. However, the convenience store sign comes into view, finally ending the time you spent together today.";
+        Date3[ds].dateDialogues[0].statement = "Aww…Oh well, let’s try again another time…";
         Date3[ds].dateDialogues[0].who = Dialogue.character.GIRL;
         Date3[ds].dateDialogues[0].isNextDecision = false;
         //narration after
-        Date3[ds].dateDialogues[1].statement = "She starts walking home but stops immediately. She quickly approaches you, planting a kiss on your cheek as she bashfully runs home. (+10 Affection)";
+        Date3[ds].dateDialogues[1].statement = "She dejectedly walked out of the arcade. The atmosphere for the rest of the date was ruined.";
         Date3[ds].dateDialogues[1].who = Dialogue.character.NONE;
         Date3[ds].dateDialogues[1].isNextDecision = false;
         Date3[ds].dateDialogueCount = 2;
@@ -607,25 +621,60 @@ public class ChatUI : MonoBehaviour
         }
     }
 
+    private void EndScenarioControl()
+    {
+        if (currentDate == 1 && currentDD == 3 && currentDS == 2)
+        {
+            date2.interactable = true;
+            currentDate = 0;
+        }
+        if (currentDate == 1 && currentDD == 3 && currentDS == 3)
+        {
+            date2.interactable = true;
+            currentDate = 0;
+        }
+        if (currentDate == 2 && currentDD == 3 && currentDS == 3)
+        {
+            date3.interactable = true;
+            currentDate = 0;
+        }
+        if (currentDate == 3 && currentDD == 9 && currentDS == 1)
+        {
+            date319d0();
+        }
+        if (currentDate == 3 && currentDD == 3 && currentDS == 2)
+        {
+            currentDate = 0;
+        }
+    }
+
     private void DecisionControls()
     {
         if (currentDate == 1 && currentDS == 1 && currentDD == 1)
         {
+            decision1.onClick.RemoveAllListeners();
+            decision2.onClick.RemoveAllListeners();
             decision1.onClick.AddListener(date111d1);
             decision2.onClick.AddListener(date111d2);
         }
         else if (currentDate == 1 && currentDS == 2 && currentDD == 1)
         {
+            decision1.onClick.RemoveAllListeners();
+            decision2.onClick.RemoveAllListeners();
             decision1.onClick.AddListener(date121d1);
             decision2.onClick.AddListener(date121d2);
         }
         else if (currentDate == 2 && currentDS == 1 && currentDD == 3)
         {
-            decision1.onClick.AddListener(ButtonProceedDialogue);
+            decision1.onClick.RemoveAllListeners();
+            decision2.onClick.RemoveAllListeners();
+            decision1.onClick.AddListener(date213d1);
         }
         else if (currentDate == 2 && currentDS == 2 && currentDD == 0)
         {
-            decision1.onClick.AddListener(ButtonProceedDialogue);
+            decision1.onClick.RemoveAllListeners();
+            decision2.onClick.RemoveAllListeners();
+            decision1.onClick.AddListener(date220d1);
         }
     }
 
@@ -664,23 +713,42 @@ public class ChatUI : MonoBehaviour
 
     private void date121d2()
     {
-        //load game
+        SceneManager.LoadSceneAsync("FirstDate", LoadSceneMode.Single);
+        ChatBoxParent.SetActive(false);
+        decision1.gameObject.SetActive(false);
+        decision2.gameObject.SetActive(false);
+        decision3.gameObject.SetActive(false);
+        isOnLoad = true;
+
     }
 
+    private void date213d1()
+    {
+        currentDD = 4;
+    }
+
+    private void date220d1()
+    {
+        GiftPanel.SetActive(true);
+        ChatBoxParent.SetActive(false);
+    }
+
+    private void date319d0()
+    {
+        SceneManager.LoadSceneAsync("ThirdDate", LoadSceneMode.Single);
+        ChatBoxParent.SetActive(false);
+        decision1.gameObject.SetActive(false);
+        decision2.gameObject.SetActive(false);
+        decision3.gameObject.SetActive(false);
+        isOnLoad = true;
+    }
+
+    //temp
     private void ButtonProceedDialogue()
     {
         currentDD++;
     }
 
-    private void ButtonProceedMazeGame()
-    {
-        //load game
-    }
-
-    private void StartButtonGame()
-    {
-        //load game
-    }
 
     private void DisableAllUI()
     {
@@ -713,6 +781,39 @@ public class ChatUI : MonoBehaviour
             {
                 currentDD++;
             }
+        }
+    }
+
+    public void GiftLoveLetterReact()
+    {
+        if (currentDate == 2)
+        {
+            AffectionLevelManager.instance.AddAffectionOnEvent(-7);
+            currentDS = 4;
+            currentDD = 0;
+            ChatBoxParent.SetActive(true);
+        }
+    }
+
+    public void GiftFlowerReact()
+    {
+        if (currentDate == 2)
+        {
+            AffectionLevelManager.instance.AddAffectionOnEvent(-5);
+            currentDS = 3;
+            currentDD = 0;
+            ChatBoxParent.SetActive(true);
+        }
+    }
+
+    public void GiftChocoReact()
+    {
+        if (currentDate == 2)
+        {
+            AffectionLevelManager.instance.AddAffectionOnEvent(-15);
+            currentDS = 3;
+            currentDD = 0;
+            ChatBoxParent.SetActive(true);
         }
     }
 }
