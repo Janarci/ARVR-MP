@@ -73,7 +73,7 @@ public class ChatUI : MonoBehaviour
                 date2.gameObject.SetActive(true);
                 date3.gameObject.SetActive(true);
                 DisableAllUI();
-                GiftPanel.SetActive(true);
+                GiftPanel.SetActive(false);
             }
             else
             {
@@ -81,6 +81,10 @@ public class ChatUI : MonoBehaviour
                 {
                     GiftPanel.SetActive(false);
                     ChatBoxParent.SetActive(true);
+                }
+                else if (currentDate == 3 && currentDS == 2 && currentDD == 0)
+                {
+                    GiftPanel.SetActive(true);
                 }
                 date1.gameObject.SetActive(false);
                 date2.gameObject.SetActive(false);
@@ -619,6 +623,11 @@ public class ChatUI : MonoBehaviour
 
     private void EndScenarioControl()
     {
+        if (currentDate == 1 && currentDD == 3 && currentDS == 2)
+        {
+            date2.interactable = true;
+            currentDate = 0;
+        }
         if (currentDate == 1 && currentDD == 3 && currentDS == 3)
         {
             date2.interactable = true;

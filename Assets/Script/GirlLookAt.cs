@@ -5,6 +5,7 @@ using UnityEngine;
 public class GirlLookAt : MonoBehaviour
 {
     public GameObject Target;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -15,5 +16,6 @@ public class GirlLookAt : MonoBehaviour
     void Update()
     {
         this.GetComponent<Transform>().LookAt(Target.transform);
+        this.GetComponent<Transform>().Rotate(0f, 0f, -90f);
     }
 }
