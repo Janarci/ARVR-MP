@@ -8,6 +8,8 @@ public class GiftUI : MonoBehaviour
     [SerializeField] private int numberOfGifts = 10;
     [SerializeField] private Gift gift;
     [SerializeField] private Image thumbnail;
+    [SerializeField] private Animator anim;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,6 +26,7 @@ public class GiftUI : MonoBehaviour
         //Get the AffectionLevelManager singleton and call the AddAffection function and set the gift as the parameter
         //Then remove 1 from numberOfGifts
         AffectionLevelManager.instance.AddAffection(gift);
+        anim.SetTrigger("GivenGift");
         numberOfGifts -= 1;
     }
 

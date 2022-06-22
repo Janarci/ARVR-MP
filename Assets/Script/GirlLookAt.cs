@@ -15,7 +15,9 @@ public class GirlLookAt : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+	    var lookatTarget = this.GetComponent<Transform>().position;
+
+        //lookatTarget.y = Target.transform.position.z;
         this.GetComponent<Transform>().LookAt(Target.transform);
-        this.GetComponent<Transform>().Rotate(0f, 0f, -90f);
     }
 }
