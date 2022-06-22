@@ -1,0 +1,35 @@
+Vuforia is not installed in this project because of pushing reasons. (too big of a load)
+Steps to make the project work:
+  - Import Vuforia
+  - Quit Unity
+  - Delete both manifest.json and packages-lock.json in Packages folder
+  - Open Unity
+  - Go to Assets -> Editor -> Migration
+  - Copy "com.ptc.vuforia.engine-10.7.2.tgz"
+  - Paste it back in the Packages folder
+  - Edit manifest.json and packages-lock.json
+  
+    In manifest.json, add the following:
+    "com.ptc.vuforia.engine": "file:com.ptc.vuforia.engine-10.7.2.tgz", above "com.unity.collab-proxy": "1.5.7",
+    
+    In packages-lock.json, add the following:
+    "com.ptc.vuforia.engine": {
+      "version": "file:com.ptc.vuforia.engine-10.7.2.tgz",
+      "depth": 0,
+      "source": "local-tarball",
+      "dependencies": {
+        "com.unity.ugui": "1.0.0"
+      }
+    },
+    
+    above
+    
+    "com.unity.collab-proxy": {
+      "version": "1.5.7",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.nuget.newtonsoft-json": "2.0.0"
+      },
+      "url": "https://packages.unity.com"
+    },
